@@ -1,7 +1,7 @@
 version: '3'
 
 volumes:
-  pg_data1:
+  pg_data:
   static:
   media:
 
@@ -10,7 +10,7 @@ services:
     image: postgres:13
     env_file: .env
     volumes:
-      - pg_data1:/var/lib/postgres/data
+      - pg_data:/var/lib/postgres/data
   backend:
     image: talasov/kittygram_backend
     env_file: .env
@@ -31,4 +31,3 @@ services:
     volumes:
       - static:/static
       - media:/app/media/
-
