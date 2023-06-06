@@ -7,23 +7,27 @@ volumes:
 
 services:
   db:
+    container_name: kittygram-db
     image: postgres:13
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgres/data
   backend:
+    container_name: kittygram-backend
     image: talasov/kittygram_backend
     env_file: .env
     volumes:
       - static:/backend_static/
       - media:/app/media/
   frontend:
+    container_name: kittygram-frontend
     image: talasov/kittygram_frontend
     env_file: .env
     command: cp -r /app/build/. /frontend_static/
     volumes:
       - static:/frontend_static
   gateway:
+    container_name: kittygram-gateway
     image: talasov/kittygram_gateway
     env_file: .env
     volumes:
