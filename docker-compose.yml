@@ -1,41 +1,65 @@
-version: '3'
+version: '3' 
 
-volumes:
-  pg_data:
-  static:
-  media:
+ 
 
-services:
-  db:
-    container_name: kittygram-db
-    image: postgres:13
-    env_file: .env
-    volumes:
-      - pg_data:/var/lib/postgres/data
+volumes: 
 
-  backend:
-    container_name: kittygram-backend
-    build: ./backend/
-    env_file: .env
-    volumes:
-      - static:/backend_static/
-      - media:/app/media/
+  pg_data: 
 
-  frontend:
-    container_name: kittygram-frontend
-    env_file: .env
-    build: ./frontend/
-    command: cp -r /app/build/. /frontend_static/
-    volumes:
-      - static:/frontend
+  static: 
 
-  gateway:
-    container_name: kittygram-gateway
-    build: ./nginx/
-    env_file: .env
-    volumes:
-      - static:/staticfiles
-      - media:/app/media/
-    ports:
-      - 9000:80
+  media: 
 
+ 
+
+services: 
+
+  db: 
+
+    image: postgres:13 
+
+    env_file: .env 
+
+    volumes: 
+
+      - pg_data:/var/lib/postgres/data 
+
+  backend: 
+
+    build: ./backend/ 
+
+    env_file: .env 
+
+    volumes: 
+
+      - static:/backend_static/ 
+
+      - media:/app/media/ 
+
+  frontend: 
+
+    env_file: .env 
+
+    build: ./frontend/ 
+
+    command: cp -r /app/build/. /frontend_static/ 
+
+    volumes: 
+
+      - static:/frontend_static 
+
+  gateway: 
+
+    build: ./nginx/ 
+
+    env_file: .env 
+
+    volumes: 
+
+      - static:/staticfiles 
+
+      - media:/app/media/ 
+
+    ports: 
+
+      - 9000:80 
